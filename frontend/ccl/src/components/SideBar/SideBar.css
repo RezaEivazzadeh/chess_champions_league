@@ -1,0 +1,68 @@
+.sidebar {
+  width: 300px;
+  background-color: var(--bg-secondary);
+  padding: 2rem 1.5rem;
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.user-profile {
+  text-align: center;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  margin: 0 auto 1rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--bg-primary);
+}
+
+.user-username {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.user-elo {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin: 0.25rem 0 0 0;
+}
+
+.nav-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-menu li {
+  margin-bottom: 1rem;
+}
+
+.nav-menu button {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-menu button:hover {
+  background-color: var(--accent-color);
+  color: var(--bg-primary);
+}

@@ -1,0 +1,33 @@
+.chessboard-container {
+  width: 600px;
+  height: 600px;
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  box-shadow: var(--shadow);
+}
+
+/* This is a simplified representation of the board */
+.square {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.square.light {
+  background-color: #f0d9b5; /* Classic light square */
+}
+
+.square.dark {
+  background-color: #b58863; /* Classic dark square */
+}
+
+.square.selected {
+  background-color: var(--accent-color) !important;
+}

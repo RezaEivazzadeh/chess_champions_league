@@ -133,6 +133,8 @@ const MoveHistory = ({ moves }) => {
   );
 };
 
+
+
 const ChessBoard = () => {
   const initialBoard = [
     ['bR', 'bN', 'bB', 'bQ', 'bK', 'bB', 'bN', 'bR'],
@@ -151,6 +153,21 @@ const ChessBoard = () => {
   const [currentTurn, setCurrentTurn] = useState('w');
   const [gameStatus, setGameStatus] = useState({ isCheck: false, isCheckmate: false, winner: null });
   const [moveHistory, setMoveHistory] = useState([]);
+  
+  const handleDraw = () => {
+    alert("Draw requested. In a real game, this would need opponent's approval.");
+  };
+
+  const handleSurrender = () => {
+    // Implement surrender logic here
+    const winner = currentTurn === 'w' ? 'Black' : 'White';
+    setGameStatus({
+      isCheck: false,
+      isCheckmate: true,
+      winner: currentTurn === 'w' ? 'b' : 'w'
+    });
+    alert(`${currentTurn === 'w' ? 'White' : 'Black'} has surrendered. ${winner} wins!`);
+  };
 
   useEffect(() => {
     const opponentColor = currentTurn === 'w' ? 'b' : 'w';
@@ -298,21 +315,25 @@ const ChessBoard = () => {
               </div>
             </div>
           </div>
-        </div>        
-      </div>
-      <div className="game-info">
-        <div className="turn-indicator">
-          Current Turn: {currentTurn === 'w' ? 'White' : 'Black'}
         </div>
-        {gameStatus.isCheck && !gameStatus.isCheckmate && (
-          <div className="check-warning">Check!</div>
-        )}
-        {gameStatus.isCheckmate && (
-          <div className="checkmate-message">
-            {gameStatus.winner === 'w' ? 'White' : 'Black'} wins!
+        </div>      
+                <div className="game-info">
+          <div className="turn-indicator">
+            Current Turn: {currentTurn === 'w' ? 'White' : 'Black'}
           </div>
-        )}
-        <MoveHistory moves={moveHistory} />
+          {gameStatus.isCheck && !gameStatus.isCheckmate && (
+            <div className="check-warning">Check!</div>
+          )}
+          {gameStatus.isCheckmate && (
+            <div className="checkmate-message">
+              {gameStatus.winner === 'w' ? 'White' : 'Black'} wins!
+            </div>
+          )}
+          <MoveHistory moves={moveHistory} />
+          <div className="game-buttons">
+            <button className="game-button draw-button" onClick={handleDraw}>Draw</button>
+            <button className="game-button surrender-button" onClick={handleSurrender}>Surrender</button>
+          </div>  
       </div>
     </div>
   );

@@ -1,37 +1,90 @@
 /* ChessBoard.css */
+
+:root {
+  --bg-primary: #0a0e1a; /* Very dark blue-black */
+  --bg-secondary: #151923; /* Dark slate */
+  --bg-tertiary: #1e2430; /* Slightly lighter slate */
+  --text-primary: #e4e6eb; /* Light gray */
+  --text-secondary: #b0b3b8; /* Muted gray */
+  --border-color: #2c3444;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-light: 0 2px 6px rgba(0, 0, 0, 0.2);
+  --accent-color: #4a6fa5; /* Blue accent for highlights */
+  --warning-color: #e74c3c; /* Red for warnings */
+  --success-color: #2ecc71; /* Green for success */
+  --neon-blue: #4a9eff; /* Neon blue for effects */
+  --neon-purple: #9d4edd; /* Neon purple for accents */
+}
+
 .chess-game {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   padding: 20px;
   font-family: Arial, sans-serif;
+  gap: 20px;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.game-area {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
 }
 
 .game-info {
-  display: grid;
-  align-items: center;
-  margin-bottom: 20px;
-  text-align: center;
-  width: 20%;
+  width: 250px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: var(--shadow), 0 0 15px rgba(74, 158, 255, 0.1);
+  color: var(--text-primary);
+  height: 540px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-color);
+  position: relative;
+}
+
+.game-info::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+  border-radius: 8px 8px 0 0;
 }
 
 .turn-indicator {
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 10px;
+  text-align: center;
+  color: var(--text-primary);
+  text-shadow: 0 0 5px rgba(74, 158, 255, 0.5);
 }
 
 .check-warning {
-  color: #d9534f;
+  color: var(--warning-color);
   font-weight: bold;
   font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 10px;
+  text-shadow: 0 0 8px rgba(231, 76, 60, 0.7);
+  animation: warning-pulse 2s infinite;
 }
 
 .checkmate-message {
-  color: #d9534f;
+  color: var(--warning-color);
   font-weight: bold;
   font-size: 1.3rem;
-  margin-top: 10px;
+  text-align: center;
+  margin-bottom: 10px;
+  text-shadow: 0 0 10px rgba(231, 76, 60, 0.8);
+  animation: warning-pulse 1.5s infinite;
 }
 
 /* 3D Board Container */
@@ -39,21 +92,15 @@
   perspective: 1000px;
 }
 
-/* ChessBoard.css */
-
-
-/* Outer square with shadow gradient */
 .board-outer-square {
   width: 560px;
   height: 560px;
-  background: linear-gradient(135deg, #af906b, #524128);
+  background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
   padding: 30px;
   border-radius: 8px;
-  box-shadow: 
-    0 10px 30px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow), 0 0 20px rgba(74, 158, 255, 0.15);
   position: relative;
+  border: 1px solid var(--border-color);
 }
 
 .board-outer-square::before {
@@ -64,7 +111,7 @@
   right: 0;
   bottom: 0;
   border-radius: 8px;
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3), inset 0 0 15px rgba(74, 158, 255, 0.1);
   z-index: 1;
   pointer-events: none;
 }
@@ -88,22 +135,13 @@
 }
 
 /* Left coordinates */
-.board-middle-container::before {
+.board-coordinates-left {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   margin-right: 5px;
   height: 480px;
 }
-
-/* Left coordinates */
-/* .board-coordinates-left {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  margin-right: 5px;
-  height: 480px;
-} */
 
 .coordinate {
   width: 30px;
@@ -112,19 +150,18 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  color: #f0d9b5;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  color: var(--text-secondary);
+  text-shadow: 0 0 3px rgba(74, 158, 255, 0.4);
 }
 
 /* Inner square with the actual chessboard */
 .board-inner-square {
   width: 480px;
   height: 480px;
-  box-shadow: 
-    0 0 20px rgba(0, 0, 0, 0.5),
-    inset 0 0 15px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow), 0 0 25px rgba(74, 158, 255, 0.2);
   border-radius: 4px;
-  /* overflow: hidden; */
+  overflow: hidden;
+  border: 1px solid var(--border-color);
 }
 
 .chessboard {
@@ -135,24 +172,6 @@
   height: 480px;
 }
 
-.square {
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
-
-.light {
-  background: radial-gradient(circle at center, #f5e5c0, #f0d9b5);
-}
-
-.dark {
-  background: radial-gradient(circle at center, #c09875, #b58863);
-}
 
 .piece {
   font-size: 48px;
@@ -163,94 +182,280 @@
 /* Ensure white pieces are filled and have proper color */
 .white-piece {
   color: #ffffff;
-  text-shadow: 0 0 1px #000, 0 0 1px #000, 0 0 1px #000;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
 }
 
 /* Ensure black pieces maintain their color */
 .black-piece {
   color: #000000;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.3);
 }
 
-.selected {
-  box-shadow: inset 0 0 0 2px #386641;
-  background: radial-gradient(circle at center, #8cf5a1, #386641);
-
-}
-
-.valid-move {
+.square {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 4px;
+  perspective: 100px;
+  transform-style: preserve-3d;
+}
+
+/* Glass box structure for all tiles */
+.square::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(255, 255, 255, 0.05) 50%, 
+    rgba(255, 255, 255, 0) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  z-index: 1;
+}
+
+/* Glass box top panel */
+.square::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30%;
+  background: linear-gradient(to bottom, 
+    rgba(255, 255, 255, 0.15) 0%, 
+    rgba(255, 255, 255, 0) 100%);
+  border-radius: 4px 4px 0 0;
+  z-index: 2;
+}
+
+/* Dark tiles - all lamps off */
+.dark {
+  background: linear-gradient(135deg, 
+    rgba(30, 36, 48, 0.9), 
+    rgba(21, 25, 35, 0.9));
+  box-shadow: 
+    inset 0 0 20px rgba(0, 0, 0, 0.5),
+    0 0 10px rgba(0, 0, 0, 0.3),
+    0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Light tiles - blueish lamp on */
+.light {
+  background: linear-gradient(135deg, 
+    rgba(30, 36, 48, 0.9), 
+    rgba(21, 25, 35, 0.9));
+  box-shadow: 
+    inset 0 0 20px rgba(0, 0, 0, 0.5),
+    0 0 10px rgba(0, 0, 0, 0.3),
+    0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Blue lamp for light tiles */
+.light::before {
+  background: linear-gradient(135deg, 
+    rgba(100, 180, 255, 0.2) 0%, 
+    rgba(74, 158, 255, 0.1) 50%, 
+    rgba(255, 255, 255, 0) 100%);
+  border: 1px solid rgba(100, 180, 255, 0.2);
+  box-shadow: 
+    inset 0 0 15px rgba(100, 180, 255, 0.3),
+    0 0 15px rgba(100, 180, 255, 0.2);
+}
+
+.light::after {
+  background: linear-gradient(to bottom, 
+    rgba(100, 180, 255, 0.3) 0%, 
+    rgba(100, 180, 255, 0) 100%);
+}
+
+/* Selected tile - green lamp on */
+.selected {
+  background: linear-gradient(135deg, 
+    rgba(30, 36, 48, 0.9), 
+    rgba(21, 25, 35, 0.9));
+  box-shadow: 
+    inset 0 0 20px rgba(0, 0, 0, 0.5),
+    0 0 10px rgba(0, 0, 0, 0.3),
+    0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.selected::before {
+  background: linear-gradient(135deg, 
+    rgba(46, 204, 113, 0.3) 0%, 
+    rgba(46, 204, 113, 0.2) 50%, 
+    rgba(255, 255, 255, 0) 100%);
+  border: 1px solid rgba(46, 204, 113, 0.3);
+  box-shadow: 
+    inset 0 0 20px rgba(46, 204, 113, 0.5),
+    0 0 20px rgba(46, 204, 113, 0.4);
+  animation: green-pulse 2s infinite;
+}
+
+.selected::after {
+  background: linear-gradient(to bottom, 
+    rgba(46, 204, 113, 0.4) 0%, 
+    rgba(46, 204, 113, 0) 100%);
+}
+
+/* Valid move tiles - glowing effect */
+.valid-move {
+  background: linear-gradient(135deg, 
+    rgba(30, 36, 48, 0.9), 
+    rgba(21, 25, 35, 0.9));
+  box-shadow: 
+    inset 0 0 20px rgba(0, 0, 0, 0.5),
+    0 0 10px rgba(0, 0, 0, 0.3),
+    0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.valid-move::before {
+  background: linear-gradient(135deg, 
+    rgba(100, 180, 255, 0.2) 0%, 
+    rgba(74, 158, 255, 0.1) 50%, 
+    rgba(255, 255, 255, 0) 100%);
+  border: 1px solid rgba(100, 180, 255, 0.2);
+  box-shadow: 
+    inset 0 0 15px rgba(100, 180, 255, 0.3),
+    0 0 15px rgba(100, 180, 255, 0.2);
+  animation: blue-glow 1.5s infinite;
 }
 
 .valid-move::after {
+  background: linear-gradient(to bottom, 
+    rgba(100, 180, 255, 0.3) 0%, 
+    rgba(100, 180, 255, 0) 100%);
+}
+
+/* Empty valid move indicator */
+.valid-move:empty::after {
   content: '';
   position: absolute;
   width: 20px;
   height: 20px;
-  background-color: rgba(233, 104, 18, 0.2);
-  /* border-radius: 50%; */
+  background: radial-gradient(circle at center, 
+    rgba(100, 180, 255, 0.8), 
+    rgba(100, 180, 255, 0.4), 
+    transparent);
+  border-radius: 50%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 5;
+  z-index: 3;
+  box-shadow: 0 0 10px rgba(100, 180, 255, 0.8);
+  animation: blue-pulse 1.5s infinite;
 }
 
-.valid-move:empty::after {
-  width: 20px;
-  height: 20px;
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 50%;
-
-}
-
+/* Target tiles (valid-move:not(:empty)) - orange lamp */
 .valid-move:not(:empty)::after {
+  content: '';
+  position: absolute;
   width: 54px;
   height: 54px;
-  background: radial-gradient(circle at center, rgb(255, 0, 0), rgba(255, 0, 0, 0.7), rgba(255, 0, 0, 0.3), rgba(255, 0, 0, 0.01), transparent);
+  background: radial-gradient(circle at center, 
+    rgba(255, 0, 0, 0.9), 
+    transparent);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+  animation: red-pulse 1.5s infinite;
+    background: linear-gradient(135deg, 
+    rgba(30, 36, 48, 0.9), 
+    rgba(21, 25, 35, 0.9));
 }
 
-
+/* Check tiles - red lamp */
 .king-in-check {
-  box-shadow: inset 0 0 0 3px #d9534f;
+  background: linear-gradient(135deg, 
+    rgba(30, 36, 48, 0.9), 
+    rgba(21, 25, 35, 0.9));
+  box-shadow: 
+    inset 0 0 20px rgba(0, 0, 0, 0.5),
+    0 0 10px rgba(0, 0, 0, 0.3),
+    0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
+.king-in-check::before {
+  background: linear-gradient(135deg, 
+    rgba(231, 76, 60, 0.3) 0%, 
+    rgba(231, 76, 60, 0.2) 50%, 
+    rgba(255, 255, 255, 0) 100%);
+  border: 1px solid rgba(231, 76, 60, 0.3);
+  box-shadow: 
+    inset 0 0 20px rgba(231, 76, 60, 0.5),
+    0 0 20px rgba(231, 76, 60, 0.4);
+  animation: red-pulse 1.5s infinite;
+}
+
+.king-in-check::after {
+  background: linear-gradient(to bottom, 
+    rgba(231, 76, 60, 0.4) 0%, 
+    rgba(231, 76, 60, 0) 100%);
+}
+
+/* Checkmate tiles - intense red lamp */
 .king-in-checkmate {
-  box-shadow: inset 0 0 0 5px #d9534f;
-  animation: pulse 1.5s infinite;
+  background: linear-gradient(135deg, 
+    rgba(30, 36, 48, 0.9), 
+    rgba(21, 25, 35, 0.9));
+  box-shadow: 
+    inset 0 0 20px rgba(0, 0, 0, 0.5),
+    0 0 10px rgba(0, 0, 0, 0.3),
+    0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.game-area {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  width: 150%;
+.king-in-checkmate::before {
+  background: linear-gradient(135deg, 
+    rgba(231, 76, 60, 0.5) 0%, 
+    rgba(231, 76, 60, 0.3) 50%, 
+    rgba(255, 255, 255, 0) 100%);
+  border: 1px solid rgba(231, 76, 60, 0.5);
+  box-shadow: 
+    inset 0 0 25px rgba(231, 76, 60, 0.7),
+    0 0 25px rgba(231, 76, 60, 0.6);
+  animation: red-pulse-intense 1s infinite;
+}
+
+.king-in-checkmate::after {
+  background: linear-gradient(to bottom, 
+    rgba(231, 76, 60, 0.6) 0%, 
+    rgba(231, 76, 60, 0) 100%);
 }
 
 .move-history {
-  width: 250px;
-  background: linear-gradient(135deg, #8b7355, #5d4e37);
-  border-radius: 8px;
-  padding: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  color: #f0d9b5;
-  height: 540px;
+  flex: 1;
   display: flex;
   flex-direction: column;
+  margin-bottom: 15px;
 }
 
 .move-history h3 {
   margin-top: 0;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   text-align: center;
-  color: #fff;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  color: var(--text-primary);
+  text-shadow: 0 0 5px rgba(74, 158, 255, 0.5);
 }
 
 .moves-container {
   flex: 1;
   overflow-y: auto;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: var(--bg-tertiary);
   border-radius: 4px;
   padding: 10px;
+  border: 1px solid var(--border-color);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2), 0 0 10px rgba(74, 158, 255, 0.1);
 }
 
 .moves-list {
@@ -266,36 +471,97 @@
   padding: 8px 10px;
   margin-bottom: 5px;
   border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.1);
-  transition: background-color 0.2s ease;
+  background-color: var(--bg-secondary);
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
 }
 
 .move-item:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--bg-tertiary);
+  box-shadow: 0 0 8px rgba(74, 158, 255, 0.3);
 }
 
 .move-item.w {
-  border-left: 3px solid #ffffff;
+  border-left-color: #ffffff;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
 
 .move-item.b {
-  border-left: 3px solid #333333;
+  border-left-color: #333333;
+  box-shadow: 0 0 5px rgba(157, 78, 221, 0.5);
 }
 
 .move-notation {
   font-weight: bold;
   font-size: 14px;
+  color: var(--text-primary);
 }
 
 .move-time {
   font-size: 12px;
-  opacity: 0.8;
+  color: var(--text-secondary);
 }
 
 .no-moves {
   text-align: center;
-  opacity: 0.7;
+  color: var(--text-secondary);
   font-style: italic;
+}
+
+.game-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.game-button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: var(--text-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.game-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.game-button:hover::before {
+  left: 100%;
+}
+
+.draw-button {
+  background-color: var(--accent-color);
+  box-shadow: 0 0 10px rgba(74, 158, 255, 0.5);
+}
+
+.draw-button:hover {
+  background-color: #3a5a8a;
+  box-shadow: 0 0 15px rgba(74, 158, 255, 0.7);
+}
+
+.surrender-button {
+  background-color: var(--warning-color);
+  box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+}
+
+.surrender-button:hover {
+  background-color: #c0392b;
+  box-shadow: 0 0 15px rgba(231, 76, 60, 0.7);
 }
 
 /* Custom scrollbar for the moves container */
@@ -304,27 +570,162 @@
 }
 
 .moves-container::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--bg-secondary);
   border-radius: 3px;
 }
 
 .moves-container::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--neon-blue);
   border-radius: 3px;
+  box-shadow: 0 0 5px rgba(74, 158, 255, 0.5);
 }
 
 .moves-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--neon-purple);
+  box-shadow: 0 0 8px rgba(157, 78, 221, 0.7);
 }
 
-@keyframes pulse {
+/* Neon animations */
+@keyframes selected-pulse {
   0% {
-    box-shadow: inset 0 0 0 5px #d9534f;
+    box-shadow: inset 0 0 0 2px var(--neon-blue), 0 0 15px rgba(74, 158, 255, 0.5);
   }
   50% {
-    box-shadow: inset 0 0 0 8px #d9534f;
+    box-shadow: inset 0 0 0 2px var(--neon-blue), 0 0 20px rgba(74, 158, 255, 0.7);
   }
   100% {
-    box-shadow: inset 0 0 0 5px #d9534f;
+    box-shadow: inset 0 0 0 2px var(--neon-blue), 0 0 15px rgba(74, 158, 255, 0.5);
+  }
+}
+
+@keyframes check-pulse {
+  0% {
+    box-shadow: inset 0 0 0 3px var(--warning-color), 0 0 20px rgba(231, 76, 60, 0.6);
+  }
+  50% {
+    box-shadow: inset 0 0 0 3px var(--warning-color), 0 0 25px rgba(231, 76, 60, 0.8);
+  }
+  100% {
+    box-shadow: inset 0 0 0 3px var(--warning-color), 0 0 20px rgba(231, 76, 60, 0.6);
+  }
+}
+
+@keyframes checkmate-pulse {
+  0% {
+    box-shadow: inset 0 0 0 5px var(--warning-color), 0 0 25px rgba(231, 76, 60, 0.8);
+  }
+  50% {
+    box-shadow: inset 0 0 0 5px var(--warning-color), 0 0 30px rgba(231, 76, 60, 1);
+  }
+  100% {
+    box-shadow: inset 0 0 0 5px var(--warning-color), 0 0 25px rgba(231, 76, 60, 0.8);
+  }
+}
+
+@keyframes warning-pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+/* Lamp animations */
+@keyframes green-pulse {
+  0% {
+    box-shadow: 
+      inset 0 0 20px rgba(46, 204, 113, 0.5),
+      0 0 20px rgba(46, 204, 113, 0.4);
+  }
+  50% {
+    box-shadow: 
+      inset 0 0 25px rgba(46, 204, 113, 0.7),
+      0 0 25px rgba(46, 204, 113, 0.6);
+  }
+  100% {
+    box-shadow: 
+      inset 0 0 20px rgba(46, 204, 113, 0.5),
+      0 0 20px rgba(46, 204, 113, 0.4);
+  }
+}
+
+@keyframes blue-glow {
+  0% {
+    box-shadow: 
+      inset 0 0 15px rgba(100, 180, 255, 0.3),
+      0 0 15px rgba(100, 180, 255, 0.2);
+  }
+  50% {
+    box-shadow: 
+      inset 0 0 20px rgba(100, 180, 255, 0.5),
+      0 0 20px rgba(100, 180, 255, 0.4);
+  }
+  100% {
+    box-shadow: 
+      inset 0 0 15px rgba(100, 180, 255, 0.3),
+      0 0 15px rgba(100, 180, 255, 0.2);
+  }
+}
+
+@keyframes blue-pulse {
+  0% {
+    box-shadow: 0 0 10px rgba(100, 180, 255, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(100, 180, 255, 1);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(100, 180, 255, 0.8);
+  }
+}
+
+@keyframes orange-pulse {
+  0% {
+    box-shadow: 0 0 15px rgba(255, 140, 0, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 140, 0, 1);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(255, 140, 0, 0.8);
+  }
+}
+
+@keyframes red-pulse {
+  0% {
+    box-shadow: 
+      inset 0 0 20px rgba(231, 76, 60, 0.5),
+      0 0 20px rgba(231, 76, 60, 0.4);
+  }
+  50% {
+    box-shadow: 
+      inset 0 0 25px rgba(231, 76, 60, 0.7),
+      0 0 25px rgba(231, 76, 60, 0.6);
+  }
+  100% {
+    box-shadow: 
+      inset 0 0 20px rgba(231, 76, 60, 0.5),
+      0 0 20px rgba(231, 76, 60, 0.4);
+  }
+}
+
+@keyframes red-pulse-intense {
+  0% {
+    box-shadow: 
+      inset 0 0 25px rgba(231, 76, 60, 0.7),
+      0 0 25px rgba(231, 76, 60, 0.6);
+  }
+  50% {
+    box-shadow: 
+      inset 0 0 30px rgba(231, 76, 60, 0.9),
+      0 0 30px rgba(231, 76, 60, 0.8);
+  }
+  100% {
+    box-shadow: 
+      inset 0 0 25px rgba(231, 76, 60, 0.7),
+      0 0 25px rgba(231, 76, 60, 0.6);
   }
 }

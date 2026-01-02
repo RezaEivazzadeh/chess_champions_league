@@ -1,33 +1,223 @@
-.chessboard-container {
-  width: 600px;
-  height: 600px;
-  background-color: var(--bg-secondary);
-  border: 2px solid var(--border-color);
-  border-radius: 8px;
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(8, 1fr);
-  box-shadow: var(--shadow);
-}
-
-/* This is a simplified representation of the board */
-.square {
+/* ChessBoard.css */
+.chess-game {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  font-size: 3rem;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.game-info {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.turn-indicator {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.check-warning {
+  color: #d9534f;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.checkmate-message {
+  color: #d9534f;
+  font-weight: bold;
+  font-size: 1.3rem;
+  margin-top: 10px;
+}
+
+/* 3D Board Container */
+.chessboard-3d-container {
+  perspective: 1000px;
+}
+
+/* Outer square with shadow gradient */
+.board-outer-square {
+  width: 560px;
+  height: 560px;
+  background: linear-gradient(135deg, #8b7355, #5d4e37);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.board-outer-square::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 8px;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Top coordinates */
+.board-coordinates-top {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 5px;
+  margin-left: 30px;
+  width: 480px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Middle container for left coordinates and inner square */
+.board-middle-container {
+  display: flex;
+  position: relative;
+  z-index: 2;
+}
+
+/* Left coordinates */
+.board-middle-container::before {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-right: 5px;
+  height: 480px;
+}
+
+/* Left coordinates */
+/* .board-coordinates-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-right: 5px;
+  height: 480px;
+} */
+
+.coordinate {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #f0d9b5;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Inner square with the actual chessboard */
+.board-inner-square {
+  width: 480px;
+  height: 480px;
+  box-shadow: 
+    0 0 20px rgba(0, 0, 0, 0.5),
+    inset 0 0 15px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  /* overflow: hidden; */
+}
+
+.chessboard {
+  display: grid;
+  grid-template-columns: repeat(8, 60px);
+  grid-template-rows: repeat(8, 60px);
+  width: 480px;
+  height: 480px;
+}
+
+.square {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.2s ease;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 
-.square.light {
-  background-color: #f0d9b5; /* Classic light square */
+.light {
+  background-color: #f0d9b5;
 }
 
-.square.dark {
-  background-color: #b58863; /* Classic dark square */
+.dark {
+  background-color: #b58863;
 }
 
-.square.selected {
-  background-color: var(--accent-color) !important;
+.piece {
+  font-size: 48px;
+  user-select: none;
+  z-index: 10;
+}
+
+/* Ensure white pieces are filled and have proper color */
+.white-piece {
+  color: #ffffff;
+  text-shadow: 0 0 1px #000, 0 0 1px #000, 0 0 1px #000;
+}
+
+/* Ensure black pieces maintain their color */
+.black-piece {
+  color: #000000;
+}
+
+.selected {
+  background-color: #6a994e !important;
+  box-shadow: inset 0 0 0 3px #386641;
+}
+
+.valid-move {
+  position: relative;
+}
+
+.valid-move::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.valid-move:empty::after {
+  width: 20px;
+  height: 20px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.valid-move:not(:empty)::after {
+  width: 54px;
+  height: 54px;
+  background-color: transparent;
+  border: 3px solid rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+}
+
+.king-in-check {
+  box-shadow: inset 0 0 0 3px #d9534f;
+}
+
+.king-in-checkmate {
+  box-shadow: inset 0 0 0 5px #d9534f;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: inset 0 0 0 5px #d9534f;
+  }
+  50% {
+    box-shadow: inset 0 0 0 8px #d9534f;
+  }
+  100% {
+    box-shadow: inset 0 0 0 5px #d9534f;
+  }
 }

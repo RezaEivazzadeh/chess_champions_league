@@ -31,6 +31,13 @@ const pieceComponents = {
   P: Pawn
 };
 
+// Helper function to convert board coordinates to chess notation
+const toChessNotation = (row, col) => {
+  const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+  const ranks = ['8', '7', '6', '5', '4', '3', '2', '1'];
+  return files[col] + ranks[row];
+};
+
 // Check if a king is in check
 const isKingInCheck = (board, kingColor) => {
   let kingPos = null;
@@ -103,6 +110,29 @@ const getValidMoves = (board, row, col) => {
   return validMoves;
 };
 
+// Move history component
+const MoveHistory = ({ moves }) => {
+  return (
+    <div className="move-history">
+      <h3>Move History</h3>
+      <div className="moves-container">
+        {moves.length === 0 ? (
+          <p className="no-moves">No moves yet</p>
+        ) : (
+          <ul className="moves-list">
+            {moves.map((move, index) => (
+              <li key={index} className={`move-item ${move.player}`}>
+                <span className="move-notation">{move.notation}</span>
+                <span className="move-time">{move.time}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const ChessBoard = () => {
   const initialBoard = [
     ['bR', 'bN', 'bB', 'bQ', 'bK', 'bB', 'bN', 'bR'],
@@ -120,6 +150,7 @@ const ChessBoard = () => {
   const [validMoves, setValidMoves] = useState([]);
   const [currentTurn, setCurrentTurn] = useState('w');
   const [gameStatus, setGameStatus] = useState({ isCheck: false, isCheckmate: false, winner: null });
+  const [moveHistory, setMoveHistory] = useState([]);
 
   useEffect(() => {
     const opponentColor = currentTurn === 'w' ? 'b' : 'w';
@@ -141,6 +172,29 @@ const ChessBoard = () => {
       const isValidMove = validMoves.some(([r, c]) => r === row && c === col);
 
       if (isValidMove) {
+        // Create move notation
+        const fromNotation = toChessNotation(selectedRow, selectedCol);
+        const toNotation = toChessNotation(row, col);
+        const piece = board[selectedRow][selectedCol];
+        const pieceType = piece[1];
+        const pieceSymbol = pieceType === 'P' ? '' : pieceType;
+        const isCapture = board[row][col] !== null;
+        const captureSymbol = isCapture ? 'x' : '->';
+        const moveNotation = `${pieceSymbol}${fromNotation} ${captureSymbol} ${toNotation}`;
+        
+        // Get current time
+        const now = new Date();
+        const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        
+        // Add to move history
+        const newMove = {
+          player: currentTurn,
+          notation: moveNotation,
+          time: timeString
+        };
+        setMoveHistory([...moveHistory, newMove]);
+        
+        // Make the move
         const newBoard = board.map(r => [...r]);
         newBoard[row][col] = newBoard[selectedRow][selectedCol];
         newBoard[selectedRow][selectedCol] = null;
@@ -187,6 +241,65 @@ const ChessBoard = () => {
 
   return (
     <div className="chess-game">
+      <div className="game-area">
+        <div className="chessboard-3d-container">
+          <div className="board-outer-square">
+            <div className="board-coordinates-top">
+              {['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].map(file => (
+                <div key={file} className="coordinate">{file}</div>
+              ))}
+            </div>
+
+            <div className="board-middle-container">
+              <div className="board-coordinates-left">
+                {[8, 7, 6, 5, 4, 3, 2, 1].map(rank => (
+                  <div key={rank} className="coordinate">{rank}</div>
+                ))}
+              </div>
+
+              <div className="board-inner-square">
+                <div className="chessboard">
+                  {board.map((row, rowIndex) =>
+                    row.map((piece, colIndex) => {
+                      const isSelected = selectedSquare &&
+                        selectedSquare[0] === rowIndex &&
+                        selectedSquare[1] === colIndex;
+
+                      const isValidMove = validMoves.some(
+                        ([r, c]) => r === rowIndex && c === colIndex
+                      );
+
+                      const isKingInCheckSquare = kingPosition &&
+                        kingPosition[0] === rowIndex &&
+                        kingPosition[1] === colIndex &&
+                        gameStatus.isCheck;
+
+                      const isKingInCheckmateSquare = kingPosition &&
+                        kingPosition[0] === rowIndex &&
+                        kingPosition[1] === colIndex &&
+                        gameStatus.isCheckmate;
+
+                      return (
+                        <div
+                          key={`${rowIndex}-${colIndex}`}
+                          className={`square ${(rowIndex + colIndex) % 2 === 0 ? 'light' : 'dark'}
+                            ${isSelected ? 'selected' : ''}
+                            ${isValidMove ? 'valid-move' : ''}
+                            ${isKingInCheckSquare ? 'king-in-check' : ''}
+                            ${isKingInCheckmateSquare ? 'king-in-checkmate' : ''}`}
+                          onClick={() => handleSquareClick(rowIndex, colIndex)}
+                        >
+                          {renderPiece(piece)}
+                        </div>
+                      );
+                    })
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>        
+      </div>
       <div className="game-info">
         <div className="turn-indicator">
           Current Turn: {currentTurn === 'w' ? 'White' : 'Black'}
@@ -199,64 +312,7 @@ const ChessBoard = () => {
             {gameStatus.winner === 'w' ? 'White' : 'Black'} wins!
           </div>
         )}
-      </div>
-
-      <div className="chessboard-3d-container">
-        <div className="board-outer-square">
-          {/* <div className="board-coordinates-top">
-            {['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].map(file => (
-              <div key={file} className="coordinate">{file}</div>
-            ))}
-          </div>
-            <div className="board-coordinates-left">
-              {[8, 7, 6, 5, 4, 3, 2, 1].map(rank => (
-                <div key={rank} className="coordinate">{rank}</div>
-              ))}
-            </div> */}
-          <div className="board-middle-container">
-
-
-            <div className="board-inner-square">
-              <div className="chessboard">
-                {board.map((row, rowIndex) =>
-                  row.map((piece, colIndex) => {
-                    const isSelected = selectedSquare &&
-                      selectedSquare[0] === rowIndex &&
-                      selectedSquare[1] === colIndex;
-
-                    const isValidMove = validMoves.some(
-                      ([r, c]) => r === rowIndex && c === colIndex
-                    );
-
-                    const isKingInCheckSquare = kingPosition &&
-                      kingPosition[0] === rowIndex &&
-                      kingPosition[1] === colIndex &&
-                      gameStatus.isCheck;
-
-                    const isKingInCheckmateSquare = kingPosition &&
-                      kingPosition[0] === rowIndex &&
-                      kingPosition[1] === colIndex &&
-                      gameStatus.isCheckmate;
-
-                    return (
-                      <div
-                        key={`${rowIndex}-${colIndex}`}
-                        className={`square ${(rowIndex + colIndex) % 2 === 0 ? 'light' : 'dark'}
-                          ${isSelected ? 'selected' : ''}
-                          ${isValidMove ? 'valid-move' : ''}
-                          ${isKingInCheckSquare ? 'king-in-check' : ''}
-                          ${isKingInCheckmateSquare ? 'king-in-checkmate' : ''}`}
-                        onClick={() => handleSquareClick(rowIndex, colIndex)}
-                      >
-                        {renderPiece(piece)}
-                      </div>
-                    );
-                  })
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
+        <MoveHistory moves={moveHistory} />
       </div>
     </div>
   );

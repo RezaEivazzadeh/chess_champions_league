@@ -263,8 +263,8 @@
 /* Light tiles - blueish lamp on */
 .light {
   background: linear-gradient(135deg, 
-    rgba(30, 36, 48, 0.9), 
-    rgba(21, 25, 35, 0.9));
+    rgba(200, 200, 255, 0.3), 
+    rgba(200, 200, 255, 0.7));
   box-shadow: 
     inset 0 0 20px rgba(0, 0, 0, 0.5),
     0 0 10px rgba(0, 0, 0, 0.3),
@@ -273,10 +273,17 @@
 
 /* Blue lamp for light tiles */
 .light::before {
-  background: linear-gradient(135deg, 
-    rgba(100, 180, 255, 0.2) 0%, 
-    rgba(74, 158, 255, 0.1) 50%, 
-    rgba(255, 255, 255, 0) 100%);
+  background: radial-gradient(circle at center, 
+    rgba(200, 200, 255, 0.8),
+    rgba(200, 200, 255, 0.8), 
+    rgba(200, 200, 255, 0.8), 
+    rgba(200, 200, 255, 0.7), 
+    rgba(200, 200, 255, 0.6), 
+    rgba(200, 200, 255, 0.5), 
+    rgba(200, 200, 255, 0.4), 
+    rgba(200, 200, 255, 0.3), 
+    rgba(200, 200, 255, 0.2), 
+    transparent);
   border: 1px solid rgba(100, 180, 255, 0.2);
   box-shadow: 
     inset 0 0 15px rgba(100, 180, 255, 0.3),
@@ -285,7 +292,7 @@
 
 .light::after {
   background: linear-gradient(to bottom, 
-    rgba(100, 180, 255, 0.3) 0%, 
+    rgba(100, 180, 255, 0.2) 0%, 
     rgba(100, 180, 255, 0) 100%);
 }
 

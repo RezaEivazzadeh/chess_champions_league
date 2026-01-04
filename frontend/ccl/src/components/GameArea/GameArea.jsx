@@ -202,8 +202,8 @@ const GameArea = () => {
   };
 
   return (
-    <div className="chess-game">
-      <div className="game-area">
+    <div className="game-area">
+      <div className="chess-game">
         <ChessBoard 
           board={board}
           selectedSquare={selectedSquare}

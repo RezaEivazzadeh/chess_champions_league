@@ -1,0 +1,142 @@
+.match-history {
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.match-history-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.match-history-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.neon-text {
+  color: var(--neon-blue);
+  text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+}
+
+.match-history-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.match-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.match-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
+  background-color: var(--bg-tertiary);
+  transition: all 0.3s ease;
+}
+
+.match-item:hover {
+  background-color: var(--bg-primary);
+  box-shadow: 0 0 10px rgba(74, 158, 255, 0.1);
+}
+
+.match-result {
+  margin-right: 1rem;
+}
+
+.result-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.result-badge.win {
+  background-color: var(--success-color);
+  color: white;
+  box-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+}
+
+.result-badge.loss {
+  background-color: var(--warning-color);
+  color: white;
+  box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+}
+
+.result-badge.draw {
+  background-color: var(--text-secondary);
+  color: white;
+  box-shadow: 0 0 10px rgba(176, 179, 184, 0.5);
+}
+
+.match-details {
+  flex: 1;
+}
+
+.opponent-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.opponent-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 0.8rem;
+  border: 2px solid var(--border-color);
+}
+
+.opponent-name {
+  font-weight: 500;
+}
+
+.match-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.match-stats {
+  margin-left: 1rem;
+  text-align: center;
+}
+
+.moves-count {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.view-all-button {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.view-all-button:hover {
+  background-color: var(--neon-blue);
+  color: white;
+  box-shadow: 0 0 10px rgba(74, 158, 255, 0.5);
+}

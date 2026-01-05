@@ -1,0 +1,139 @@
+.user-points {
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.user-profile {
+  padding: 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  border: 3px solid var(--neon-blue);
+  box-shadow: 0 0 15px rgba(74, 158, 255, 0.5);
+}
+
+.user-name {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.user-rank {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.points-container {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.points-display {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.points-label {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.points-value {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.neon-text {
+  color: var(--neon-blue);
+  text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+}
+
+.points-progress {
+  margin-top: 1rem;
+}
+
+.progress-bar {
+  height: 8px;
+  background-color: var(--bg-tertiary);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(74, 158, 255, 0.5);
+}
+
+.progress-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.stats-container {
+  display: flex;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value.win {
+  color: var(--success-color);
+  text-shadow: 0 0 5px rgba(46, 204, 113, 0.5);
+}
+
+.stat-value.loss {
+  color: var(--warning-color);
+  text-shadow: 0 0 5px rgba(231, 76, 60, 0.5);
+}
+
+.stat-value.draw {
+  color: var(--text-secondary);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.profile-button {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 1.5rem;
+}
+
+.profile-button:hover {
+  background-color: var(--neon-purple);
+  color: white;
+  box-shadow: 0 0 10px rgba(157, 78, 221, 0.5);
+}

@@ -1,0 +1,266 @@
+.game-info {
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.info-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.info-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.neon-text {
+  color: var(--neon-blue);
+  text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+}
+
+.info-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: 1.5rem;
+}
+
+.clock-container {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  background-color: var(--bg-tertiary);
+  border-radius: 8px;
+}
+
+.clock {
+  transition: all 0.3s ease;
+}
+
+.clock.low-time {
+  animation: pulse 1s infinite;
+}
+
+.clock.low-time .seven-segment .segment.active {
+  background-color: var(--warning-color);
+  box-shadow: 0 0 8px var(--warning-color);
+}
+
+.clock.minute-passed {
+  animation: minuteFlash 2s;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes minuteFlash {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.digital-clock {
+  display: flex;
+  align-items: center;
+}
+
+.digit {
+  margin: 0 3px;
+}
+
+.colon {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--neon-blue);
+  text-shadow: 0 0 5px var(--neon-blue);
+  margin: 0 5px;
+}
+
+.seven-segment {
+  width: 30px;
+  height: 50px;
+  position: relative;
+}
+
+.digit-display {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.segment {
+  position: absolute;
+  background-color: rgba(74, 158, 255, 0.2);
+  border-radius: 3px;
+}
+
+.segment.horizontal {
+  width: 24px;
+  height: 4px;
+  left: 3px;
+}
+
+.segment.vertical {
+  width: 4px;
+  height: 20px;
+}
+
+.segment.top {
+  top: 0;
+}
+
+.segment.middle {
+  top: 23px;
+}
+
+.segment.bottom {
+  bottom: 0;
+}
+
+.segment.top-left {
+  top: 3px;
+  left: 0;
+}
+
+.segment.top-right {
+  top: 3px;
+  right: 0;
+}
+
+.segment.bottom-left {
+  bottom: 3px;
+  left: 0;
+}
+
+.segment.bottom-right {
+  bottom: 3px;
+  right: 0;
+}
+
+.segment.active {
+  background-color: var(--neon-blue);
+  box-shadow: 0 0 5px var(--neon-blue);
+}
+
+.segment-group {
+  position: relative;
+  width: 100%;
+  height: 20px;
+}
+
+.turn-indicator {
+  padding: 1rem;
+  background-color: var(--bg-tertiary);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.turn-status {
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+.turn-status.your-turn {
+  color: var(--success-color);
+  text-shadow: 0 0 5px var(--success-color);
+}
+
+.turn-status.opponent-turn {
+  color: var(--warning-color);
+  text-shadow: 0 0 5px var(--warning-color);
+}
+
+.opponent-info {
+  padding: 1rem;
+  background-color: var(--bg-tertiary);
+  border-radius: 8px;
+}
+
+.opponent-title {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+.opponent-details {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.opponent-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+}
+
+.opponent-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.opponent-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.opponent-rank {
+  color: var(--text-secondary);
+}
+
+.game-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.action-button {
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.action-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.action-button.withdraw:hover {
+  background-color: var(--neon-blue);
+  box-shadow: 0 0 15px var(--neon-blue);
+}
+
+.action-button.surrender:hover {
+  background-color: var(--warning-color);
+  box-shadow: 0 0 15px var(--warning-color);
+}

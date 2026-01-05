@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import GameArea from '../GameArea/GameArea';
 import './MainPage.css';
 import SideBar from '../SideBar/SideBar';
@@ -11,10 +11,16 @@ const user = {
 };
 
 const MainPage = () => {
+  const hasActiveGame = useState(false);
+
   return (
     <div className="main-page">
-      <SideBar username={user.username} elo={user.elo} />
-      <GameArea />
+      <SideBar 
+        username={user.username} 
+        elo={user.elo} 
+        hasActiveGame={hasActiveGame}
+      />
+      <GameArea hasActiveGame={hasActiveGame}/>
     </div>
   );
 };

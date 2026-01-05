@@ -100,8 +100,7 @@ const getValidMoves = (board, row, col) => {
   }
   return validMoves;
 };
-
-const GameArea = () => {
+const GameArea = ({hasActiveGame = false}) => {
   const initialBoard = [
     ['bR', 'bN', 'bB', 'bQ', 'bK', 'bB', 'bN', 'bR'],
     ['bP', 'bP', 'bP', 'bP', 'bP', 'bP', 'bP', 'bP'],
